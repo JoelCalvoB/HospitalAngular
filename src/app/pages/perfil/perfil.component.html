@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card card-body">
+                <h3 class="box-title m-b-0"> Mi perfil de Usuario</h3>
+                <p class="text-muted m-b-30 font-13"> Ajustes </p>
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <form [formGroup]="myForm" (ngSubmit)="guardar()">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">User</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1"
+                                    placeholder="Enter Username" formControlName="nombre">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email </label>
+                                <input type="email" class="form-control" id="exampleInputEmail1"
+                                    placeholder="Enter email"  formControlName="email" [readonly]="usuario.google">
+                            </div>
+
+                            <button type="submit" [disabled]="myForm.invalid"
+                                class="btn btn-success waves-effect waves-light m-r-10 fa fa-save">Guardar Cambios</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card card-body">
+                <h3 class="box-title m-b-0"> Avatar</h3>
+                <p class="text-muted m-b-30 font-13"> Imagen del User</p>
+
+               <img [src]="usuario.imagenUrl" style="width: 200px; height: 200px;" alt="">
+
+               <input type="file" (change)="CambiarImagen($event)">
+
+               <br>
+               <br>
+
+               <button type="button"
+               class="btn btn-success waves-effect waves-light m-r-10 fa fa-save"(click)="Subir()"  >Subir</button>
+            </div>
+        </div>
+    </div>
+
+
+</div>

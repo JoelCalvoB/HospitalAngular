@@ -11,7 +11,7 @@ import { PagesModule } from './pages/pages.module';
 @NgModule({
   declarations: [
     AppComponent,
-    NoPageFoundComponent,  
+    NoPageFoundComponent,
     
   ],
   imports: [

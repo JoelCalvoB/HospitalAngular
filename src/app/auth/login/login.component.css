@@ -49,3 +49,10 @@ Login register and recover password Page
       position: absolute;
       height: 100%; }
   
+
+      .btn-google{
+        display: flex;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+      }
