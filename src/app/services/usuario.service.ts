@@ -121,4 +121,12 @@ loginGoogle(token: any ){
     })
   )
 }
+
+
+cargarUusarios(desde:number =0){
+  return this.http.get(`${this.baseurl}/usuarios?=${desde}` , { headers: {
+    'x-token': this.getToken
+  }})
+}
+
 }
