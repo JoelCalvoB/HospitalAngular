@@ -5,6 +5,7 @@ import { error } from 'protractor';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { lista } from '../interfaces/listaUsuarios';
 import { Usuario } from '../models/usuario.model';
 
 declare const  gapi: any;
@@ -123,8 +124,8 @@ loginGoogle(token: any ){
 }
 
 
-cargarUusarios(desde:number =0){
-  return this.http.get(`${this.baseurl}/usuarios?=${desde}` , { headers: {
+cargarUusarios(desde:number =0): Observable<any>{
+  return this.http.get<lista>(`${this.baseurl}/usuarios?=${desde}` , { headers: {
     'x-token': this.getToken
   }})
 }

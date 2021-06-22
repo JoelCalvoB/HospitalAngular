@@ -32,7 +32,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Usuarios</h4>
-                <h6 class="card-subtitle">Usuarios registrados en </h6>
+                <h6 class="card-subtitle">Usuarios registrados {{totalUsuarios}} </h6>
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
@@ -48,12 +48,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Lunar probe project</td>
-                                <td>Lunar probe project</td>
-                                <td>Lunar probe project</td>
-                                <td>Lunar probe project</td>
-                                <td>Lunar probe project</td>
+                            <tr *ngFor="let item of usuarios">
+                                <td>xxxx</td>
+                                <td>{{item.email}}</td>
+                                <td>{{item.nombre}}</td>
+                                <td>{{item.role}}</td>
+                                <td>
+                                    <span class="label label-danger"> Google</span>
+                                    <span class="label label-danger"> Email</span>
+
+                                </td>
 
                             
                                 <td class="text-nowrap">
