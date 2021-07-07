@@ -1,8 +1,10 @@
-<div class="row animated fadeIn fast">
+<div  class="row animated fadeIn fast">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
                 <input type="text"
+                #Txtinput
+                (keyup)="Busqueda(Txtinput.value)"
                 class="form-control"
                 placeholder="Buscar Usuario...">
 
@@ -11,7 +13,7 @@
     </div>
 </div>
 
-<div class="row animated fadeIn fast">
+<div *ngIf="cargando" class="row animated fadeIn fast">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
@@ -27,12 +29,12 @@
 </div>
 
 
-<div class="row">
+<div *ngIf="!cargando"  class="row animated fadeIn fast">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Usuarios</h4>
-                <h6 class="card-subtitle">Usuarios registrados {{totalUsuarios}} </h6>
+                <h6 class="card-subtitle">Usuarios registrados {{totalUsuarios}} - {{desde}} </h6>
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
@@ -40,7 +42,7 @@
                                 <th>Avatar</th>
                                 <th>Nombre</th>
                                 <th>Correo</th>
-                                <th>Role</th>
+                                <th  style="width: 30%;">Role</th>
                                 <th>Auth</th>
 
 
@@ -49,28 +51,35 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of usuarios">
-                                <td>xxxx</td>
+                                <td> <img [src]="item.imagenUrl" style="width:30%"
+                                    (click)="abrirModal(item)"> </td>
                                 <td>{{item.email}}</td>
                                 <td>{{item.nombre}}</td>
-                                <td>{{item.role}}</td>
                                 <td>
-                                    <span class="label label-danger"> Google</span>
-                                    <span class="label label-danger"> Email</span>
+                                    <select class="form-control" [(ngModel)]="item.role"
+                                    (change)="CambiarRole(item)">
+                                        <option value="ADMIN_ROLE">Admin</option>
+                                        <option value="USER_ROLE">Role</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <span *ngIf="item.google" class="label label-danger"> Google</span>
+                                    <span  *ngIf="!item.google"  class="label label-info"> Email</span>
 
                                 </td>
 
                             
                                 <td class="text-nowrap">
                                     <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                                    <a href="#" data-toggle="tooltip" data-original-title="Errase"> <i class="fa fa-close text-danger"></i> </a>
+                                    <a (click)="BorrarUser(item)" data-toggle="tooltip" data-original-title="Errase"> <i class="fa fa-close text-danger"></i> </a>
                                 </td>
                             </tr>
 
                         </tbody>
                     </table>
 
-                    <div class="btn ntn-secondary"> Anteriores</div>
-                    <div class="btn ntn-secondary"> Siguientes</div>
+                    <div class="btn ntn-secondary" (click)="UsuarioSiguiente(-5)"> Anteriores</div>
+                    <div class="btn ntn-secondary" (click)="UsuarioSiguiente(5)"> Siguientes</div>
 
                 </div>
             </div>

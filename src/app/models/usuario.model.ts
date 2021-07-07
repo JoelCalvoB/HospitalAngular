@@ -15,6 +15,11 @@ constructor(    public role: string ,
 }
 
 get imagenUrl() {
+
+    if (!this.img)
+    {
+        return `${base}/upload/usuarios/no-includes`
+    }
         
     if ( this.img.includes('https') ) {
         return this.img;

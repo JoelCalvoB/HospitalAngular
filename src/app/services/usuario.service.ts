@@ -3,7 +3,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { error } from 'protractor';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, delay, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { lista } from '../interfaces/listaUsuarios';
 import { Usuario } from '../models/usuario.model';
@@ -92,6 +92,17 @@ validarToken(): Observable<boolean> {
 
 
 
+  BorrarUser(usuario: Usuario)
+  {
+    
+    return   this.http.delete(`${this.baseurl}/usuarios/${usuario.uid}` , {  headers: {
+      'x-token': this.getToken
+    }});
+  }
+
+
+
+
   ActualizarPerfil(data: {email:string , nombre: string , role:string})
   {
     data={
@@ -124,10 +135,34 @@ loginGoogle(token: any ){
 }
 
 
-cargarUusarios(desde:number =0): Observable<any>{
-  return this.http.get<lista>(`${this.baseurl}/usuarios?=${desde}` , { headers: {
+cargarUusarios(desde:number =0){
+  return  this.http.get<lista>(`${this.baseurl}/usuarios?=${desde}` , { headers: {
     'x-token': this.getToken
-  }})
-}
+  }}).pipe(map(datos => {
+    delay(7000)
+    console.log('delay');
+    const usuarios= datos.usuarios.map(resp =>
+      new Usuario(resp.role , resp.google, resp.nombre , resp.email , resp.img , resp.uid! ,''
+    ) );
+    return {
+      total: datos.total,
+      usuarios
+    };
 
+  })
+
+  )}
+
+
+
+
+  ActualizarRol(usuario: Usuario)
+  {
+  
+
+    return   this.http.put(`${this.baseurl}/usuarios/${usuario.uid}` , usuario, {  headers: {
+      'x-token': this.getToken
+    }});
+
+  }
 }
